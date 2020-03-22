@@ -25,7 +25,7 @@ public class ItemDao {
 
 	
 	 public Item create(Item item) throws SQLException {
-		String insert = "INSERT INTO Item(item,item_name,display_level, selectable, sort_sequence) VALUES(?,?,?,?,?);";
+		String insert = "INSERT INTO item(item,item_name,display_level, selectable, sort_sequence) VALUES(?,?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
 		try {
@@ -57,8 +57,8 @@ public class ItemDao {
 	
 }
 	 
-	 public Companies getCompanyByCompanyName(String companyName) throws SQLException {
-		 String select = "SELECT CompanyName,About FROM Companies WHERE CompanyName=?;";
+	 public Item getItemByItemId(String item) throws SQLException {
+		 String select = "SELECT item,item_name FROM item WHERE item=?;";
 		 
 			Connection connection = null;
 			PreparedStatement selectStmt = null;
@@ -66,17 +66,17 @@ public class ItemDao {
 			try {
 				connection = connectionManager.getConnection();
 				selectStmt = connection.prepareStatement(select);
-				selectStmt.setString(1, companyName);
+				selectStmt.setString(1, item);
 				
 				results = selectStmt.executeQuery();
 				if(results.next()) {
 					
-					String cn = results.getString("CompanyName");
-					String abt = results.getString("About");
+					String itemId = results.getString("item");
+					String itemDetails = results.getString("item_name");
 					
-					
-					Companies c = new Companies(cn, abt);
-					return c;
+
+					Item i = new Item(itemId, itemDetails);
+					return i;
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -97,23 +97,23 @@ public class ItemDao {
 	 
 	 
 	 
-	 public Companies updateAbout(Companies company, String newAbout) throws SQLException {
+	 public Item updateItemDetails(Item item, String newDetails) throws SQLException {
 		 
 		 
-		 String update = "UPDATE Companies SET About=? WHERE CommpanyName=?;";
+		 String update = "UPDATE item SET item_name=? WHERE item=?;";
 			Connection connection = null;
 			PreparedStatement updateStmt = null;
 			try {
 				connection = connectionManager.getConnection();
 				updateStmt = connection.prepareStatement(update);
 				
-				updateStmt.setString(1, newAbout);
-				updateStmt.setString(2, company.getCompanyName());
+				updateStmt.setString(1, newDetails);
+				updateStmt.setString(2, item.getItem());
 				updateStmt.executeUpdate();
 
-				company.setAbout(newAbout);
+				item.setItem_name(newDetails);
 				
-				return company;
+				return item;
 			} catch (SQLException e) {
 				e.printStackTrace();
 				throw e;
@@ -131,14 +131,14 @@ public class ItemDao {
 	 }
 	 
 
-	 public Companies delete(Companies company) throws SQLException {
-			String delete = "DELETE FROM Companies WHERE CompanyName=?;";
+	 public Item delete(Item item) throws SQLException {
+			String delete = "DELETE FROM item WHERE item=?;";
 			Connection connection = null;
 			PreparedStatement deleteStmt = null;
 			try {
 				connection = connectionManager.getConnection();
 				deleteStmt = connection.prepareStatement(delete);
-				deleteStmt.setString(1, company.getCompanyName());
+				deleteStmt.setString(1, item.getItem());
 				deleteStmt.executeUpdate();
 
 				System.out.println("Delete Successful!!");

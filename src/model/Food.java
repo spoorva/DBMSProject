@@ -1,6 +1,6 @@
 package model;
 
-public class FoodNew {
+public class Food {
 	
 	
 	public String item ;
@@ -10,8 +10,8 @@ public class FoodNew {
 	
 	
 	
-	public FoodNew(String item, int year, String period, double value) {
-		super();
+	public Food(String item, int year, String period, double value) {
+		
 		this.item = item;
 		this.year = year;
 		this.period = period;
@@ -19,7 +19,7 @@ public class FoodNew {
 	}
 	
 	
-	public FoodNew(String id, Double val) {
+	public Food(String id, Double val) {
 		// TODO Auto-generated constructor stub
 		item = id;
 		value = val;
