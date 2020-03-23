@@ -15,6 +15,16 @@ public class Item {
 	}
 
 
+	public Item(String item, String item_name, String display_level, String selectable, String sort_sequence) {
+	
+		this.item = item;
+		this.item_name = item_name;
+		this.display_level = display_level;
+		this.selectable = selectable;
+		this.sort_sequence = sort_sequence;
+	}
+
+
 	public String getItem() {
 		return item;
 	}

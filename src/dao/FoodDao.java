@@ -1,37 +1,40 @@
 package dao;
 
+
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import dao.ConnectionManager;
 import model.Food;
 import model.FoodNew;
 
-import dao.FoodDao;
 
-
-public class FoodNewDao {
+public class FoodDao {
 
 	protected ConnectionManager connectionManager;
 
 	// Single pattern: instantiation is limited to one object.
-	private static FoodNewDao instance = null;
+	private static FoodDao instance = null;
 
-	protected FoodNewDao() {
+	protected FoodDao() {
 		// TODO Auto-generated constructor stub
 
 		connectionManager = new ConnectionManager();
 	}
 
-	public static FoodNewDao getInstance() {
+	public static FoodDao getInstance() {
 		if (instance == null) {
-			instance = new FoodNewDao();
+			instance = new FoodDao();
 		}
 		return instance;
 	}
 
-	public FoodNew create(FoodNew food) throws SQLException {
+	public Food create(Food food) throws SQLException {
+		
+		
 		String insert = "INSERT INTO food_new(item,year,period,value) VALUES(?,?,?,?);";
 		Connection connection = null;
 		PreparedStatement insertStmt = null;
@@ -43,13 +46,6 @@ public class FoodNewDao {
 			insertStmt.setInt(2, food.getYear());
 			insertStmt.setString(3, food.getPeriod());
 			insertStmt.setDouble(4, food.getValue());
-			
-			String id = food.getItem();
-			id = id.substring(9);
-			
-			Food f = new Food(id, food.getYear(), food.getPeriod(), food.getValue());
-			new FoodDao().create(f);
-			
 			
 			insertStmt.executeUpdate();
 
@@ -69,7 +65,7 @@ public class FoodNewDao {
 	}
 
 	
-	public FoodNew getValueByItemId(String itemid) throws SQLException {
+	public Food getValueByItemId(String itemid) throws SQLException {
 		String select = "SELECT item_id, value FROM Companies WHERE item_id=?;";
 
 		Connection connection = null;
@@ -86,7 +82,7 @@ public class FoodNewDao {
 				String id = results.getString("item_id");
 				Double val = results.getDouble("value");
 
-				FoodNew f = new FoodNew(id, val);
+				Food f = new Food(id, val);
 				return f;
 			}
 		} catch (SQLException e) {
@@ -107,9 +103,9 @@ public class FoodNewDao {
 	}
 	
 	
-	public FoodNew updateValue(FoodNew f, double newVal) throws SQLException {
+	public Food updateValue(Food f, double newVal) throws SQLException {
 
-		String update = "UPDATE food_new SET value=? WHERE item=?;";
+		String update = "UPDATE food SET value=? WHERE item=?;";
 		Connection connection = null;
 		PreparedStatement updateStmt = null;
 		try {
@@ -137,8 +133,8 @@ public class FoodNewDao {
 
 	}
 
-	public FoodNew delete(FoodNew food) throws SQLException {
-		String delete = "DELETE FROM food_new WHERE item=?;";
+	public Food delete(Food food) throws SQLException {
+		String delete = "DELETE FROM food WHERE item=?;";
 		Connection connection = null;
 		PreparedStatement deleteStmt = null;
 		try {
