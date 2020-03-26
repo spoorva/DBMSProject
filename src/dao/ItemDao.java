@@ -20,6 +20,7 @@ public class ItemDao {
 		if(instance == null) {
 			instance = new ItemDao();
 		}
+		System.out.println("Instance created");
 		return instance;
 	}
 
