@@ -12,7 +12,7 @@
 	<form action="foodupdate" method="post">
 		<p>
 			<label for="item">Item</label>
-			<input id="item" name="item" value=""}">
+			<input id="item" name="item" value="">
 		</p>
 		<p>
 			<label for="value">New Item Name</label>

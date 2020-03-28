@@ -38,11 +38,12 @@ public FoodNewDao foodDao;
     		Map<String, String> messages = new HashMap<String, String>();
     		request.setAttribute("messages", messages);
     		List<FoodNew> itemList = new ArrayList<FoodNew>();
+    		
+    		String test = "test";
             
     		FoodNew f = null;;
 
-    		// Retrieve and validate name.
-    		// firstname is retrieved from the URL query string.
+    		
     		String item = request.getParameter("item");
     		if (item == null || item.trim().isEmpty()) {
     			messages.put("success", "Please enter a valid item id.");
@@ -61,6 +62,8 @@ public FoodNewDao foodDao;
     			messages.put("entered item id", item);
     		}
     		request.setAttribute("i", itemList);
+    		
+    		request.setAttribute("test", test);
 
     		request.getRequestDispatcher("/FoodRead.jsp").forward(request, response);
 

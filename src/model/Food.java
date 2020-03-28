@@ -4,13 +4,13 @@ public class Food {
 	
 	
 	public String item ;
-	public int year;
+	public String year;
 	public String period;
-	public double value ;
+	public String value ;
 	
 	
 	
-	public Food(String item, int year, String period, double value) {
+	public Food(String item, String year, String period, String value) {
 		
 		this.item = item;
 		this.year = year;
@@ -19,7 +19,7 @@ public class Food {
 	}
 	
 	
-	public Food(String id, Double val) {
+	public Food(String id, String val) {
 		// TODO Auto-generated constructor stub
 		item = id;
 		value = val;
@@ -32,10 +32,10 @@ public class Food {
 	public void setItem(String item) {
 		this.item = item;
 	}
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 	public String getPeriod() {
@@ -44,10 +44,10 @@ public class Food {
 	public void setPeriod(String period) {
 		this.period = period;
 	}
-	public double getValue() {
+	public String getValue() {
 		return value;
 	}
-	public void setValue(double value) {
+	public void setValue(String value) {
 		this.value = value;
 	}
 

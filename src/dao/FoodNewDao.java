@@ -40,9 +40,9 @@ public class FoodNewDao {
 			insertStmt = connection.prepareStatement(insert);
 
 			insertStmt.setString(1, food.getItem());
-			insertStmt.setInt(2, food.getYear());
+			insertStmt.setString(2, food.getYear());
 			insertStmt.setString(3, food.getPeriod());
-			insertStmt.setDouble(4, food.getValue());
+			insertStmt.setString(4, food.getValue());
 			
 			String id = food.getItem();
 			id = id.substring(9);
@@ -70,7 +70,7 @@ public class FoodNewDao {
 
 	
 	public FoodNew getValueByItemId(String itemid) throws SQLException {
-		String select = "SELECT item_id, value FROM Companies WHERE item_id=?;";
+		String select = "SELECT item, value FROM food_new WHERE item=?;";
 
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
@@ -83,8 +83,8 @@ public class FoodNewDao {
 			results = selectStmt.executeQuery();
 			if (results.next()) {
 
-				String id = results.getString("item_id");
-				Double val = results.getDouble("value");
+				String id = results.getString("item");
+				String val = results.getString("value");
 
 				FoodNew f = new FoodNew(id, val);
 				return f;
@@ -107,7 +107,7 @@ public class FoodNewDao {
 	}
 	
 	
-	public FoodNew updateValue(FoodNew f, double newVal) throws SQLException {
+	public FoodNew updateValue(FoodNew f, String newVal) throws SQLException {
 
 		String update = "UPDATE food_new SET value=? WHERE item=?;";
 		Connection connection = null;
@@ -116,7 +116,7 @@ public class FoodNewDao {
 			connection = connectionManager.getConnection();
 			updateStmt = connection.prepareStatement(update);
 
-			updateStmt.setDouble(1, newVal);
+			updateStmt.setString(1, newVal);
 			updateStmt.setString(2, f.getItem());
 			updateStmt.executeUpdate();
 

@@ -19,7 +19,7 @@ import model.Item;
 /**
  * Servlet implementation class FoodUpdate
  */
-@WebServlet("/FoodUpdate")
+@WebServlet("/foodupdate")
 public class FoodUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
