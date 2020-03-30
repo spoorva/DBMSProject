@@ -38,7 +38,7 @@ public class ConnectionManager {
 				throw new SQLException(e);
 			}
 			connection = DriverManager.getConnection(
-			    "jdbc:mysql://" + this.hostName + ":" + this.port + "/" + this.schema + "?useSSL=false",
+			    "jdbc:mysql://" + this.hostName + ":" + this.port + "/" + this.schema + "?allowPublicKeyRetrieval=true&useSSL=false",
 			    connectionProperties);
 			System.out.println("Connection successful!! :)");
 		} catch (SQLException e) {

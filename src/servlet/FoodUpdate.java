@@ -52,7 +52,7 @@ public class FoodUpdate extends HttpServlet {
             messages.put("success", "Please enter a valid values.");
         } else {
         	try {
-        		FoodNew f  = foodDao.updateValue(food, Double.parseDouble(value));
+        		FoodNew f  = foodDao.updateValue(food, value);
         		if(f == null) {
         			messages.put("success", "UserName does not exist.");
         		}

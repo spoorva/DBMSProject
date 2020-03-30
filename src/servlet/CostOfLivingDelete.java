@@ -5,29 +5,23 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.annotation.*;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.FoodNewDao;
 import dao.ItemDao;
-import model.FoodNew;
 import model.Item;
 
-/**
- * Servlet implementation class FoodDelete
- */
-@WebServlet("/fooddelete")
-public class FoodDelete extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+@WebServlet("/coldelete")
+public class CostOfLivingDelete extends HttpServlet {
 
-	protected FoodNewDao itemDao;
+	protected ItemDao itemDao;
 
 	@Override
 	public void init() throws ServletException {
-		itemDao = FoodNewDao.getInstance();
+		itemDao = ItemDao.getInstance();
 	}
 
 	@Override
@@ -37,7 +31,7 @@ public class FoodDelete extends HttpServlet {
 		req.setAttribute("messages", messages);
 		// Provide a title and render the JSP.
 		messages.put("title", "Delete BlogUser");
-		req.getRequestDispatcher("/FoodDelete.jsp").forward(req, resp);
+		req.getRequestDispatcher("/ItemDelete.jsp").forward(req, resp);
 	}
 
 	@Override
@@ -49,11 +43,11 @@ public class FoodDelete extends HttpServlet {
 		// Retrieve and validate name.
 		String item = req.getParameter("item");
 
-		FoodNew i2 = null;
+		Item i2 = null;
 		try {
-			i2 = itemDao.getValueByItemId(item);
+			i2 = itemDao.getItemByItemId(item);
 
-			FoodNew i3 = itemDao.delete(i2);
+			Item i3 = itemDao.delete(i2);
 			// Update the message.
 			if (i3 == null) {
 				messages.put("title", "Successfully deleted " + item);
@@ -67,6 +61,6 @@ public class FoodDelete extends HttpServlet {
 			throw new IOException(e);
 		}
 
-		req.getRequestDispatcher("/FoodDelete.jsp").forward(req, resp);
+		req.getRequestDispatcher("/ItemDelete.jsp").forward(req, resp);
 	}
 }

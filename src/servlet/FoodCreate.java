@@ -65,7 +65,7 @@ public class FoodCreate extends HttpServlet {
 	        	
 		        try {
 		        	// Exercise: parse the input for StatusLevel.
-		        	FoodNew food = new FoodNew(item, Integer.parseInt(year), period, Double.parseDouble(value));
+		        	FoodNew food = new FoodNew(item, year, period, value);
 		        	foodDao.create(food);
 		        	messages.put("success", "Successfully created food and food_new" + item);
 		        } catch (SQLException e) {

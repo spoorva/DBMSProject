@@ -9,7 +9,7 @@
 <body>
 
 	<h1>Update Item</h1>
-	<form action="foodupdate" method="post">
+	<form action="food_update" method="post">
 		<p>
 			<label for="item">Item</label>
 			<input id="item" name="item" value="">
@@ -32,5 +32,3 @@
 
 </body>
 </html>
-
-<!-- CWUR0000SAF116    -->

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<h1>${messages.title}</h1>
-	<form action="itemdelete" method="post">
+	<form action="coldelete" method="post">
 		<p>
 			<div <c:if test="${messages.disableSubmit}">style="display:none"</c:if>>
 				<label for="item">Item</label>
@@ -29,5 +29,3 @@
 	
 </body>
 </html>
-
-<!-- 703 -->

@@ -1,72 +1,41 @@
 package dao;
 
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import dao.ConnectionManager;
 import model.Food;
+import model.FoodEtl;
 import model.FoodNew;
 
+import dao.FoodDao;
 
-public class FoodDao {
+
+public class FoodEtlDao {
 
 	protected ConnectionManager connectionManager;
 
 	// Single pattern: instantiation is limited to one object.
-	private static FoodDao instance = null;
+	private static FoodEtlDao instance = null;
 
-	protected FoodDao() {
+	protected FoodEtlDao() {
 		// TODO Auto-generated constructor stub
 
 		connectionManager = new ConnectionManager();
 	}
 
-	public static FoodDao getInstance() {
+	public static FoodEtlDao getInstance() {
 		if (instance == null) {
-			instance = new FoodDao();
+			instance = new FoodEtlDao();
 		}
 		return instance;
 	}
 
-	public Food create(Food food) throws SQLException {
-		
-		
-		String insert = "INSERT INTO food_new(item,year,period,value) VALUES(?,?,?,?);";
-		Connection connection = null;
-		PreparedStatement insertStmt = null;
-		try {
-			connection = connectionManager.getConnection();
-			insertStmt = connection.prepareStatement(insert);
-
-			insertStmt.setString(1, food.getItem());
-			insertStmt.setString(2, food.getYear());
-			insertStmt.setString(3, food.getPeriod());
-			insertStmt.setString(4, food.getValue());
-			
-			insertStmt.executeUpdate();
-
-			return food;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw e;
-		} finally {
-			if (connection != null) {
-				connection.close();
-			}
-			if (insertStmt != null) {
-				insertStmt.close();
-			}
-		}
-
-	}
-
 	
-	public Food getValueByItemId(String itemid) throws SQLException {
-		String select = "SELECT item_id, value FROM food_new WHERE item_id=?;";
+	
+	public FoodEtl getNameByItemId(String itemid, String year, String period) throws SQLException {
+		String select = "SELECT item, item_name, year, period FROM etl_food WHERE item=? AND year=? AND period=?;";
 
 		Connection connection = null;
 		PreparedStatement selectStmt = null;
@@ -75,14 +44,18 @@ public class FoodDao {
 			connection = connectionManager.getConnection();
 			selectStmt = connection.prepareStatement(select);
 			selectStmt.setString(1, itemid);
+			selectStmt.setString(2, year);
+			selectStmt.setString(3, period);
 
 			results = selectStmt.executeQuery();
 			if (results.next()) {
 
-				String id = results.getString("item_id");
-				String val = results.getString("value");
+				String id = results.getString("item");
+				String name = results.getString("item_name");
+				String y = results.getString("year");
+				String per = results.getString("period");
 
-				Food f = new Food(id, val);
+				FoodEtl f = new FoodEtl(id, name, y, per);
 				return f;
 			}
 		} catch (SQLException e) {
@@ -103,9 +76,9 @@ public class FoodDao {
 	}
 	
 	
-	public Food updateValue(Food f, String newVal) throws SQLException {
+	public FoodEtl updateValue(FoodEtl f, String newVal) throws SQLException {
 
-		String update = "UPDATE food SET value=? WHERE item=?;";
+		String update = "UPDATE etl_food SET value=? WHERE item=?;";
 		Connection connection = null;
 		PreparedStatement updateStmt = null;
 		try {
@@ -133,8 +106,8 @@ public class FoodDao {
 
 	}
 
-	public Food delete(Food food) throws SQLException {
-		String delete = "DELETE FROM food WHERE item=?;";
+	public FoodEtl delete(FoodNew food) throws SQLException {
+		String delete = "DELETE FROM etl_food WHERE item=?;";
 		Connection connection = null;
 		PreparedStatement deleteStmt = null;
 		try {

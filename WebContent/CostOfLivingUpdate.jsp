@@ -8,8 +8,8 @@
 </head>
 <body>
 
-	<h1>Update Item</h1>
-	<form action="foodupdate" method="post">
+	<h1>Update Cost Of living Item</h1>
+	<form action="colupdate" method="post">
 		<p>
 			<label for="item">Item</label>
 			<input id="item" name="item" value="">
@@ -32,5 +32,3 @@
 
 </body>
 </html>
-
-<!-- CWUR0000SAF116    -->
